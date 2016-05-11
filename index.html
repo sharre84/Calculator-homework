@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Calculator</title>
+
+  <style media="screen">
+
+  #container {
+    width: 180px;
+    height: 20px;
+    border: 5px solid black;
+    margin: 0 auto;
+  }
+
+  #display {
+    height: 30px;
+    width: 80px;
+  }
+
+  .equals {
+    width: 50px;
+    height: 50px;
+  }
+
+  .num {
+    width:50px;
+    height: 50px;
+  }
+  .operator {
+    width: 50px;
+    height: 50px;
+  }
+  .clear{
+    height: 50px;
+    width: 150px;
+  }
+
+
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="display"></div>
+    <button class="num" value="1">1</button>
+    <button class="num" value="2">2</button>
+    <button class="num" value="3">3</button>
+    <button class="num" value="4">4</button>
+    <button class="num" value="5">5</button>
+    <button class="num" value="6">6</button>
+    <button class="num" value="7">7</button>
+    <button class="num" value="8">8</button>
+    <button class="num" value="9">9</button>
+    <button class="num" value="0">0</button>
+    <button class="operator" value="-">-</button>
+    <button class="operator" value="+">+</button>
+    <button class="operator" value="/">/</button>
+    <button class="operator" value="*">*</button>
+    <button class="equals" value="=">=</button>
+    <button class="clear" value="clear">Clear</button>
+  </div>
+
+  <script type"text/javascript">
+
+  var numbers = document.querySelectorAll('.number')
+  var calculator = {
+    numbers: document.querySelectorAll('.num'),
+    operators: document.querySelectorAll('.operator'),
+    equals: document.querySelector('.equals'),
+
+    operations:{
+      add: function(a,b) {
+        return a + b;
+      },
+      divi: function(a,b) {
+        return a / b;
+      },
+      mul: function(a,b) {
+        return a * b;
+      },
+      sub: function(a,b) {
+        return a - b;
+      }
+    }
+  }
+  var expression = ["", "", ""]
+
+  //making sure the numbers are being evaluated and displayed
+  for(var i = 0; i < calculator.numbers.length; i += 1){
+    calculator.numbers[i].addEventListener('click', function(){
+      console.log(this.innerHTML)
+      document.getElementById('display').innerHTML += this.innerHTML
+      if (expression[1]){
+        expression[2] +=  this.innerHTML
+      } else {
+        expression[0] += this.innerHTML
+      }
+    })
+  }
+
+  // making sure the operators are working and display
+  for(var i = 0; i < calculator.operators.length; i += 1){
+    calculator.operators[i].addEventListener('click', function(){
+      console.log(this.innerHTML)
+      document.getElementById('display').innerHTML += this.innerHTML
+      expression[1] = this.innerHTML
+    })
+  }
+
+  // making sure the equals works and displays
+  calculator.equals.addEventListener('click', function(){
+    console.log(this.innerHTML)
+    //document.getElementById('display').innerHTML += this.innerHTML
+    if (expression[0] && expression[1] && expression[2]){
+      document.getElementById('display').innerHTML = eval(expression[0]+expression[1]+expression[2])
+      expression = ["", "", ""]
+
+    }
+  })
+
+  </script>
+
+</body>
+</html>
